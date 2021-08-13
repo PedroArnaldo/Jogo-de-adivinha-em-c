@@ -2,47 +2,64 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <stdbool.h>
+#include <locale.h>
 
+//#define numeroTentativas 3
 
 int main(void)
 {
+    setlocale(LC_ALL, "Portuguese_Brazil");
     
-    printf("***********************************\n");
-    printf("*Bem-vindo ao Jogo de  AdivinhaÃ§Ã£o*\n");
-    printf("***********************************\n");
+    printf("*************************************\n");
+    printf("* Bem-vindo ao Jogo de  Adivinhação *\n");
+    printf("*************************************\n");
 
-    bool acertou;
-    int secretnumber, chute;
-    secretnumber = 42;
-
-    printf("Qual Ã© o seu chute? ");
-    scanf("%d", &chute);
-
-    printf("VocÃª chutou o nÃºmero %d\n", chute);
-
-    acertou = chute == secretnumber? true : false;
-
-    if(acertou)
-    {
-        printf("ParabÃ©ns! VocÃª acertou!");
-
-    }
-    else
-    {
-        int maior = chute > secretnumber;
-        if(maior)
-        {
-            printf("Seu chute foi maior do que o nÃºemro secreto!\n");
-        }
-        else
-        {
-            printf("Seu chute foi menor do que o nÃºmero secreto!\n");
-        }
-        
-    }
+    int numerosecreto, chute;
+    numerosecreto = 42;
+    int numeroTentativas = 1;
+	
+	while(true)
+	{
+		printf("Qual é o seu chute? ");
+	    scanf("%d", &chute);
+	    
+	    if(chute < 0)
+	    {
+	    	printf("Você não pode chutar números negativos.\n");
+	    	numeroTentativas--;
+	    	continue;
+		}
+	
+	    printf("\nVocê chutou o número: %d\n", chute);
+	
+	    bool acertou = chute == numerosecreto;
+	    bool maior = chute > numerosecreto;
+	
+	    if(acertou)
+	    {
+	        printf("=> Parabêns! Você acertou!\n");
+	        break;
+	
+	    }
+	    else if(maior)
+	    {
+	    	printf("=> Seu chute foi maior do que o número secreto!\n");
+		}
+	    else
+	    {
+	        printf("=> Seu chute foi menor do que o número secreto!\n");
+	    }
+	        
+	    
+	    printf("\n");
+	    
+	    numeroTentativas++;
+	}
     
+    printf("Você acertou em %d tentativas", numeroTentativas);
+    printf("Obrigado por jogar!\n\n");
 
 
-     
+    system("pause");
     return 0;
 }
